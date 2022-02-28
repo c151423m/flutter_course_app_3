@@ -29,7 +29,9 @@ class LogInPage extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       print('Going inside blog page');
-                      return BlogPage();
+                      return BlogPage(
+                        dataFromLoginPage: 'The Blog',
+                      );
                     }));
                   },
                   child: Text("Sign In"),

@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_third/custom_widgets/widget_blog.dart';
 
 class BlogPage extends StatelessWidget {
-  const BlogPage({Key? key}) : super(key: key);
+  // const BlogPage({Key? key}) : super(key: key);
+  BlogPage({required this.dataFromLoginPage});
+  final String dataFromLoginPage;
 
+  List<Widget> widgetBlogList({required BuildContext context}) => [
+        widgetBlog(
+            imagePath: 'images/rich.png',
+            title: 'Top 10 tips to retire at 40 years old',
+            subTitle: 'Man I wish I could retire that early',
+            context: context),
+        widgetBlog(
+          imagePath: 'images/house.png',
+          title: 'How to purchase a house',
+          subTitle: 'No. You cannot buy one from your local Costco',
+          context: context,
+        ),
+        widgetBlog(
+            imagePath: 'images/apps.png',
+            title: 'Seven Apps to find "The One"',
+            subTitle: 'How to find your "Tom Hanks"',
+            context: context),
+      ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +31,8 @@ class BlogPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true, //need this to put the text in centre
         title: Text(
-          'The Blog',
+          // 'The Blog',
+          dataFromLoginPage,
           style: TextStyle(
               color: Colors.black,
               letterSpacing: 2,
@@ -29,20 +50,7 @@ class BlogPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widgetBlog(
-                imagePath: 'images/rich.png',
-                title: 'Top 10 tips to retire at 40 years old',
-                subTitle: 'Man I wish I could retire that early',
-              ),
-              widgetBlog(
-                imagePath: 'images/house.png',
-                title: 'How to purchase a house',
-                subTitle: 'No. You cannot buy one from your local Costco',
-              ),
-              widgetBlog(
-                  imagePath: 'images/apps.png',
-                  title: 'Seven Apps to find "The One"',
-                  subTitle: 'How to find your "Tom Hanks"'),
+              ...widgetBlogList(context: context),
               TextButton(
                 style: TextButton.styleFrom(
                     primary: Colors.blueGrey[900],

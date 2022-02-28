@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_third/custom_widgets/article_content.dart';
 
 // blog1, 2 and 3 have string directly written
 Widget widgetBlog1() => Column(
@@ -130,13 +131,25 @@ Widget widgetBlog3() => Column(
 
 // this widget will get 3 parameters instead
 Widget widgetBlog(
-        {required String imagePath,
-        required String title,
-        required String subTitle}) =>
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
+    {required String imagePath,
+    required String title,
+    required String subTitle,
+    required BuildContext context}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ArticleContent(
+              imagePath: imagePath,
+              articleTitle: title,
+              subTitle: subTitle,
+            );
+          }));
+        },
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
           child: Image.asset(
             imagePath,
             fit: BoxFit.cover,
@@ -150,27 +163,54 @@ Widget widgetBlog(
           //double.infinity to stretch to the end
           width: double.infinity,
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        Text(
-          subTitle,
-          style: TextStyle(fontSize: 16),
-        ),
-        Container(
-          //the width can control the divider length
-          width: 50,
-          child: Divider(
-            thickness: 5,
-            color: Colors.black,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      InkWell(
+        // inkwell will give you gimmick when tapping text
+        borderRadius: BorderRadius.circular(10),
+        onTap: () {
+          print(title);
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ArticleContent(
+              imagePath: imagePath,
+              articleTitle: title,
+              subTitle: subTitle,
+            );
+          }));
+        },
+        child: Container(
+          // need to put in container to have the wripple to the
+          // entire screen
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              Text(
+                subTitle,
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
           ),
         ),
-        SizedBox(
-          height: 20,
+      ),
+      Container(
+        //the width can control the divider length
+        width: 50,
+        child: Divider(
+          thickness: 5,
+          color: Colors.black,
         ),
-      ],
-    );
+      ),
+      SizedBox(
+        height: 20,
+      ),
+    ],
+  );
+}
